@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chia Sẻ Bài Tập</title>
+    <style>
+        body {
+            display: flex;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .menu {
+            width: 250px;
+            margin-right: 20px;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .menu h3 {
+            margin: 0 0 15px;
+            text-align: center;
+            color: #333;
+        }
+        .menu button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .menu button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .content {
+            flex: 1;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .exercise {
+            background: #e9ecef;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .exercise:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .code {
+            display: none;
+            background: #f0f8ff;
+            padding: 10px;
+            border-left: 4px solid #007BFF;
+            margin-top: 5px;
+            white-space: pre-wrap;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        .details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .view-count {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #007BFF;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="menu">
+    <h3>Danh Sách Bài Tập</h3>
+    <button onclick="showExercises('probability')">Xác Suất Thống Kê</button>
+    <button onclick="showExercises('programming')">Lập Trình</button>
+    <button onclick="showExercises('robotics')">Giao Tiếp Người Máy</button>
+</div>
+
+<div class="content">
+    <h2>Các Bài Tập</h2>
+    <div id="exercise-list"></div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Trang Chia Sẻ Bài Tập</p>
+</footer>
+
+<script>
+    const exercises = {
+        probability: [
+            {
+                title: "Bài Tập 1: Tính xác suất của một sự kiện",
+                details: "Hãy tính xác suất của sự kiện A xảy ra trong không gian mẫu.",
+                code: "P(A) = Số phần tử của A / Số phần tử của không gian mẫu",
+                viewCount: 0
+            },
+            {
+                title: "Bài Tập 2: Phân phối nhị thức",
+                details: "Xem xét n lần thử, mỗi lần thử có xác suất thành công p.",
+                code: "X ~ B(n, p) \n\nTrong đó n = số lần thử, p = xác suất thành công trong mỗi lần thử.",
+                viewCount: 0
+            }
+        ],
+        programming: [
+            {
+                title: "Bài Tập 1: Viết hàm tính giai thừa",
+                details: "Viết một hàm để tính giai thừa của một số nguyên không âm.",
+                code: "public static int factorial(int n) {\n    if (n == 0) return 1;\n    return n * factorial(n - 1);\n}",
+                viewCount: 0
+            },
+            {
+                title: "Bài Tập 2: Sắp xếp mảng",
+                details: "Viết một hàm để sắp xếp một mảng số nguyên bằng thuật toán sắp xếp nổi bọt.",
+                code: "public static void bubbleSort(int[] arr) {\n    for (int i = 0; i < arr.length - 1; i++) {\n        for (int j = 0; j < arr.length - i - 1; j++) {\n            if (arr[j] > arr[j + 1]) {\n                // swap arr[j] and arr[j+1]\n                int temp = arr[j];\n                arr[j] = arr[j + 1];\n                arr[j + 1] = temp;\n            }\n        }\n    }\n}",
+                viewCount: 0
+            }
+        ],
+        robotics: [
+            {
+                title: "Bài Tập 1: Lập kế hoạch di chuyển cho robot",
+                details: "Hướng dẫn lập kế hoạch di chuyển cho robot dựa trên vị trí mục tiêu.",
+                code: "1. Xác định mục tiêu.\n2. Lập kế hoạch đường đi.\n3. Thực hiện di chuyển.",
+                viewCount: 0
+            },
+            {
+                title: "Bài Tập 2: Cảm biến và điều khiển",
+                details: "Viết mã cho robot để phát hiện vật cản và dừng lại.",
+                code: "while (true) {\n    if (sensor.detectObstacle()) {\n        robot.stop();\n    }\n}",
+                viewCount: 0
+            }
+        ]
+    };
+
+    function showExercises(type) {
+        const exerciseList = document.getElementById('exercise-list');
+        exerciseList.innerHTML = ''; // Clear previous exercises
+        exercises[type].forEach((exercise, index) => {
+            exerciseList.innerHTML += `
+                <div class="exercise" onclick="toggleDetails('${type}', ${index})">
+                    ${exercise.title}
+                    <div id="details-${type}-${index}" class="details">${exercise.details}</div>
+                    <div id="code-${type}-${index}" class="code">${exercise.code}</div>
+                    <div id="view-count-${type}-${index}" class="view-count">Lượt xem: ${exercise.viewCount}</div>
+                </div>
+            `;
+        });
+    }
+
+    function toggleDetails(type, index) {
+        const detailsElement = document.getElementById(`details-${type}-${index}`);
+        const codeElement = document.getElementById(`code-${type}-${index}`);
+        const viewCountElement = document.getElementById(`view-count-${type}-${index}`);
+
+        // Tính lượt xem khi mở hoặc tắt bài tập
+        if (detailsElement.style.display === 'block' || codeElement.style.display === 'block') {
+            // Đang mở, tắt đi
+            detailsElement.style.display = 'none';
+            codeElement.style.display = 'none';
+        } else {
+            // Mở bài tập, tăng lượt xem
+            detailsElement.style.display = 'block';
+            codeElement.style.display = 'block';
+            exercises[type][index].viewCount++;
+        }
+        
+        // Cập nhật số lượt xem
+        viewCountElement.textContent = `Lượt xem: ${exercises[type][index].viewCount}`;
+    }
+</script>
+
+</body>
+</html>
